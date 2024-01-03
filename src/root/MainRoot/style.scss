@@ -1,0 +1,16 @@
+.layout {
+  max-width: 2160px;
+  margin: 0 auto;
+  overflow: scroll;
+  .content {
+    min-height: 100dvh;
+    margin: 1%;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: var(--boxShadow);
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
