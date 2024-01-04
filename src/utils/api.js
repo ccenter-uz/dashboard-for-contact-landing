@@ -60,10 +60,14 @@ api.interceptors.response.use(
       });
     }
     if (error.response.status === 401) {
-      return toast.error(error.response.data.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        hideProgressBar: false,
-      });
+      return (
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          hideProgressBar: false,
+        }),
+        Cookies.remove("access_token"),
+        window.location.reload()
+      );
     }
     return toast.error(error.response.data.message, {
       position: toast.POSITION.BOTTOM_RIGHT,

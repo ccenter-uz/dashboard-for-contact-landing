@@ -9,6 +9,7 @@ import {
   UserCheck,
   Users,
 } from "react-feather";
+import { Welcome } from "src/pages/Welcome";
 
 // dynamic import
 const Application = lazy(() => import("src/pages/Application"));
@@ -22,6 +23,10 @@ const Team = lazy(() => import("src/pages/Team"));
 export const route = [
   {
     index: true,
+    element: <Welcome />,
+  },
+  {
+    path: "/history",
     name: "History",
     element: <History />,
     icon: <Clock size={20} color="grey" />,

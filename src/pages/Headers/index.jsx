@@ -1,28 +1,77 @@
 import { Table } from "src/components/reusable/Table";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Button, Avatar, Tooltip } from "antd";
+import { Button, Avatar, Tooltip, Form, Input } from "antd";
 import "./style.scss";
-import { getHeaders } from "src/service/helpers/actions";
+import {
+  addHeaders,
+  deleteHeaders,
+  getHeaders,
+  updateHeaders,
+} from "src/service/helpers/actions";
 import { IMAGE_LINK } from "src/service/helpers/constants";
 import { PenTool, Trash2 } from "react-feather";
 import { queryClient } from "src/main";
 import { toast } from "react-toastify";
+import { Drawer } from "src/components/Drawer";
+import { useState, startTransition } from "react";
+import { fileReader } from "src/service/helpers/usefulFns";
 
 const Headers = () => {
+  const [form] = Form.useForm();
+  const [fileList, setFileList] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [record, setRecord] = useState(null);
   const { data, isPending } = useQuery({
     queryKey: ["headers"],
     queryFn: getHeaders,
     refetchOnWindowFocus: false,
   });
-  const deleteData = useMutation({ mutationFn: (id) => deleteHistory(id) });
+  const deleteData = useMutation({ mutationFn: (id) => deleteHeaders(id) });
 
   // handleDelete
   const handleDelete = async (value) => {
-    deleteData.mutate(value.id);
+    await deleteData.mutateAsync(value.id);
     if (deleteData.isSuccess) {
+      toast.success("Удалено", { position: "bottom-right" });
       queryClient.invalidateQueries({ queryKey: ["headers"] });
-      toast.success(deleteData.data, { position: "bottom-right" });
     }
+  };
+
+  // handleUpdate
+  const handleUpdate = async () => {
+    const body = new FormData();
+    body.append("header_image", fileList);
+    const res = await updateHeaders(record.id, body);
+
+    console.log(res, "res");
+  };
+
+  // handleCreate
+  const handleCreate = async () => {
+    const body = new FormData();
+    body.append("header_image", fileList);
+    const res = await addHeaders(body);
+
+    console.log(res, "res");
+  };
+
+  // handleChange
+  const handleChange = async (e) => {
+    const preview = await fileReader(e.target.files[0]);
+    setFileList(e.target.files[0]);
+    setPreview(preview);
+  };
+
+  // close Drawer
+  const closeDrawer = () => {
+    startTransition(() => {
+      setFileList(null);
+      setPreview(null);
+      setOpen(false);
+      setRecord(null);
+      form.resetFields();
+    });
   };
 
   const column = [
@@ -58,7 +107,17 @@ const Headers = () => {
         return (
           <div className="d-flex align-center justify-center gap-x-1">
             <Tooltip title="Изменить" placement="top">
-              <PenTool cursor={"pointer"} size={20} color="#252525" />
+              <PenTool
+                cursor={"pointer"}
+                size={20}
+                color="#252525"
+                onClick={() => {
+                  setOpen(true);
+                  setRecord(record);
+                  setFileList(record.image_link);
+                  setPreview(IMAGE_LINK + "" + record.haeder_image_link);
+                }}
+              />
             </Tooltip>
             <Tooltip title="Удалить" placement="top">
               <Trash2
@@ -78,15 +137,53 @@ const Headers = () => {
       <h1>Headers</h1>
 
       <div className="headers-table m-t-2">
-        <Button className="m-y-1" type="primary">
-          Создать +
-        </Button>
+        <div className="w-100 d-flex align-center justify-end">
+          <Button
+            className="m-y-1"
+            type="primary"
+            onClick={() => setOpen(true)}
+          >
+            Создать +
+          </Button>
+        </div>
         <Table
           loading={isPending}
           column={column}
           row={data?.map((item) => ({ ...item, key: item.id }))}
         />
       </div>
+      {/* DRAWER*/}
+      <Drawer
+        history={{
+          record,
+          open,
+          closeDrawer,
+          preview,
+          title: "Добавить",
+          footer: (
+            <div className="d-flex align-center gap-x-2">
+              <Button type="primary" form="history-form" htmlType="submit">
+                Сохранить
+              </Button>
+              <Button danger onClick={closeDrawer}>
+                Отмена
+              </Button>
+            </div>
+          ),
+        }}
+      >
+        <Form
+          typeof="form-data"
+          onFinish={record ? handleUpdate : handleCreate}
+          form={form}
+          id="history-form"
+          layout="vertical"
+        >
+          <Form.Item name={"image"} label="Картинка">
+            <Input type="file" onChange={handleChange} />
+          </Form.Item>
+        </Form>
+      </Drawer>
     </main>
   );
 };

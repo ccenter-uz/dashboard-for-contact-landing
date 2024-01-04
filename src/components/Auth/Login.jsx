@@ -1,16 +1,24 @@
 import { Col, Row, Form, Input, Button, Avatar } from "antd";
 import "./style.scss";
 import SIGN from "src/assets/signIn.png";
+import { useMutation } from "@tanstack/react-query";
 import { User } from "react-feather";
-import Cookies from "js-cookie";
+import { ToastContainer } from "react-toastify";
+import { LogIn } from "src/service/helpers/actions";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [form] = Form.useForm();
+  const signIn = useMutation({
+    mutationFn: async (values) => await LogIn(values),
+  });
+  const navigate = useNavigate();
 
   // handleFinish
-  const handleFinish = (values) => {
-    console.log(values, "values");
-    Cookies.set("access_token", true, { expires: 1, secure: true });
+  const handleFinish = async (values) => {
+    await signIn.mutateAsync(values);
+
+    signIn.isSuccess && navigate("/", { replace: true });
   };
 
   return (
@@ -38,13 +46,14 @@ const Login = () => {
                 />
                 <h1>Войти</h1>
               </div>
-              <Form.Item label="Логин" name={"login"}>
-                <Input />
+              <Form.Item label="Логин" name={"name"}>
+                <Input disabled={signIn.isPending} />
               </Form.Item>
               <Form.Item label="Пароль" name={"password"}>
-                <Input type="password" />
+                <Input type="password" disabled={signIn.isPending} />
               </Form.Item>
               <Button
+                loading={signIn.isPending}
                 htmlType="submit"
                 form="login-form"
                 type="primary"
@@ -56,6 +65,7 @@ const Login = () => {
           </section>
         </Col>
       </Row>
+      <ToastContainer />
     </main>
   );
 };
