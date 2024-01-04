@@ -1,8 +1,18 @@
 .sider {
   .menus {
-    padding: 1rem;
     li a {
+      padding: 1rem;
       color: #252525;
+    }
+    .active {
+      position: relative;
+      transition: all 0.3s ease;
+      height: 100%;
+      background: rgb(0, 132, 214);
+      color: #fff;
+      svg {
+        stroke: #fff !important;
+      }
     }
   }
 }

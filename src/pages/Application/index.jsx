@@ -51,13 +51,6 @@ const Application = () => {
       flex: 1,
       align: "center",
     },
-    {
-      title: "Дейтсвия",
-      dataIndex: "action",
-      key: "action",
-      flex: 1,
-      align: "center",
-    },
   ];
   return (
     <main className="application">

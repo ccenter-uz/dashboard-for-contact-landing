@@ -1,7 +1,28 @@
+import Cookies from "js-cookie";
 import { api } from "src/utils/api";
+import { toast } from "react-toastify";
+import { wait } from "./usefulFns";
 
+// Log in
+export const LogIn = async (values) => {
+  try {
+    const res = await api.post("Auth/signIn", values);
+    res.status === 200 &&
+      (Cookies.set("access_token", res.data.token, {
+        expires: 1,
+        secure: true,
+      }),
+      toast.success("Успешно!", { position: "bottom-right" }),
+      await wait(2000));
+
+    return res.data;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// ---------------------------------------------
 // GETTERS
-
 // getHistory
 export const getHistory = async () => {
   try {
@@ -78,13 +99,216 @@ export const getPartners = async () => {
     console.log(err, "err");
   }
 };
-
+// ----------------------------------------------------------
 // DELETE
-
 // History
 export const deleteHistory = async (id) => {
   try {
     const res = await api.delete(`ShortHistory/delete/${id}`);
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// Headers
+export const deleteHeaders = async (id) => {
+  try {
+    const res = await api.delete(`HeaderImage/delete/${id}`);
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// Statistics
+export const deleteStatistics = async (id) => {
+  try {
+    const res = await api.delete(`Statistic/delete/${id}`);
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// Service
+export const deleteService = async (id) => {
+  try {
+    const res = await api.delete(`Servise/delete/${id}`);
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// Team
+export const deleteTeam = async (id) => {
+  try {
+    const res = await api.delete(`FrendlyTeam/delete/${id}`);
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// Partners
+export const deletePartners = async (id) => {
+  try {
+    const res = await api.delete(`Partner/delete/${id}`);
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// ------------------------------------------------
+
+// SETTERS
+// setHistory
+export const addHistory = async (values) => {
+  try {
+    const res = await api.post("Shorthistory/create", values);
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
+
+    return res.data;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// setHeaders
+export const addHeaders = async (values) => {
+  try {
+    const res = await api.post("HeaderImage/create", values);
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
+
+    return res.data;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// setService
+export const addService = async (values) => {
+  try {
+    const res = await api.post("Servise/create", values);
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
+
+    return res.data;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// setTeam
+export const addTeam = async (values) => {
+  try {
+    const res = await api.post("FrendlyTeam/create", values);
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
+
+    return res.data;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// setPartner
+export const addPartners = async (values) => {
+  try {
+    const res = await api.post("Partner/create", values);
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
+
+    return res.data;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// ------------------------------------------------
+
+// UPDATERS
+// updateHistory
+export const updateHistory = async (id, values) => {
+  try {
+    const res = await api.patch(`Shorthistory/update/${id}`, values);
+    res.status === 204 &&
+      toast.success("Изменено", { position: "bottom-right" });
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// updateHeaders
+export const updateHeaders = async (id, values) => {
+  try {
+    const res = await api.patch(`HeaderImage/update/${id}`, values);
+    res.status === 204 &&
+      toast.success("Изменено", { position: "bottom-right" });
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// updateStatistics
+export const updateStatistics = async (id, values) => {
+  try {
+    const res = await api.patch(`Statistic/update/${id}`, values);
+    res.status === 204 &&
+      toast.success("Изменено", { position: "bottom-right" });
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// updateService
+export const updateService = async (id, values) => {
+  try {
+    const res = await api.patch(`Servise/update/${id}`, values);
+    res.status === 204 &&
+      toast.success("Изменено", { position: "bottom-right" });
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// updateTeam
+export const updateTeam = async (id, values) => {
+  try {
+    const res = await api.patch(`FrendlyTeam/update/${id}`, values);
+    res.status === 204 &&
+      toast.success("Изменено", { position: "bottom-right" });
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// updatePartners
+export const updatePartners = async (id, values) => {
+  try {
+    const res = await api.patch(`Partner/update/${id}`, values);
+    res.status === 204 &&
+      toast.success("Изменено", { position: "bottom-right" });
 
     return res;
   } catch (err) {
