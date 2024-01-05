@@ -11,7 +11,6 @@ import {
 import { IMAGE_LINK } from "src/service/helpers/constants";
 import { PenTool, Trash2 } from "react-feather";
 import { queryClient } from "src/main";
-import { toast } from "react-toastify";
 import { Drawer } from "src/components/Drawer";
 import { useState, startTransition } from "react";
 import { fileReader } from "src/service/helpers/usefulFns";
@@ -32,10 +31,7 @@ const Headers = () => {
   // handleDelete
   const handleDelete = async (value) => {
     await deleteData.mutateAsync(value.id);
-    if (deleteData.isSuccess) {
-      toast.success("Удалено", { position: "bottom-right" });
-      queryClient.invalidateQueries({ queryKey: ["headers"] });
-    }
+    queryClient.invalidateQueries({ queryKey: ["headers"] });
   };
 
   // handleUpdate
@@ -43,7 +39,8 @@ const Headers = () => {
     const body = new FormData();
     body.append("header_image", fileList);
     const res = await updateHeaders(record.id, body);
-
+    queryClient.invalidateQueries({ queryKey: ["headers"] });
+    closeDrawer();
     console.log(res, "res");
   };
 
@@ -52,7 +49,8 @@ const Headers = () => {
     const body = new FormData();
     body.append("header_image", fileList);
     const res = await addHeaders(body);
-
+    queryClient.invalidateQueries({ queryKey: ["headers"] });
+    closeDrawer();
     console.log(res, "res");
   };
 

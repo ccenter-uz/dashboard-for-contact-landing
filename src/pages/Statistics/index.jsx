@@ -8,7 +8,6 @@ import {
   updateStatistics,
 } from "src/service/helpers/actions";
 import { PenTool, Trash2 } from "react-feather";
-import { toast } from "react-toastify";
 import { queryClient } from "src/main";
 import { Drawer } from "src/components/Drawer";
 import { startTransition, useState } from "react";
@@ -27,16 +26,14 @@ const Statistics = () => {
   // handleDelete
   const handleDelete = async (value) => {
     deleteData.mutate(value.id);
-    if (deleteData.isSuccess) {
-      queryClient.invalidateQueries({ queryKey: ["statistics"] });
-      toast.success(deleteData.data, { position: "bottom-right" });
-    }
+    queryClient.invalidateQueries({ queryKey: ["statistics"] });
   };
 
   // handleUpdate
   const handleUpdate = async (values) => {
     const res = await updateStatistics(record.id, values);
-
+    queryClient.invalidateQueries({ queryKey: ["statistics"] });
+    closeDrawer();
     console.log(res, "res");
   };
 

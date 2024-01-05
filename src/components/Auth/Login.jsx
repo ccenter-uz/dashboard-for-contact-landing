@@ -5,20 +5,16 @@ import { useMutation } from "@tanstack/react-query";
 import { User } from "react-feather";
 import { ToastContainer } from "react-toastify";
 import { LogIn } from "src/service/helpers/actions";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [form] = Form.useForm();
   const signIn = useMutation({
     mutationFn: async (values) => await LogIn(values),
   });
-  const navigate = useNavigate();
 
   // handleFinish
   const handleFinish = async (values) => {
     await signIn.mutateAsync(values);
-
-    signIn.isSuccess && navigate("/", { replace: true });
   };
 
   return (

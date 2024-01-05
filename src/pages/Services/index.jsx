@@ -10,7 +10,6 @@ import {
 } from "src/service/helpers/actions";
 import { IMAGE_LINK } from "src/service/helpers/constants";
 import { PenTool, Trash2 } from "react-feather";
-import { toast } from "react-toastify";
 import { queryClient } from "src/main";
 import { useState, startTransition } from "react";
 import { fileReader } from "src/service/helpers/usefulFns";
@@ -32,10 +31,7 @@ const Services = () => {
   // handleDelete
   const handleDelete = async (value) => {
     deleteData.mutate(value.id);
-    if (deleteData.isSuccess) {
-      queryClient.invalidateQueries({ queryKey: ["services"] });
-      toast.success(deleteData.data, { position: "bottom-right" });
-    }
+    queryClient.invalidateQueries({ queryKey: ["services"] });
   };
 
   // handleUpdate
@@ -46,7 +42,8 @@ const Services = () => {
     body.append("title_en", values.title_en);
     body.append("servise_image", fileList);
     const res = await updateService(record.id, body);
-
+    queryClient.invalidateQueries({ queryKey: ["services"] });
+    closeDrawer();
     console.log(res, "res");
   };
 
@@ -58,7 +55,8 @@ const Services = () => {
     body.append("title_en", values.title_en);
     body.append("servise_image", fileList);
     const res = await addService(body);
-
+    queryClient.invalidateQueries({ queryKey: ["services"] });
+    closeDrawer();
     console.log(res, "res");
   };
 

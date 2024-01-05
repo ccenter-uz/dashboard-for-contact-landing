@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
 export const api = axios.create({
-  baseURL: `http://192.168.61.169:2001/api/v1/`,
+  baseURL: `https://apilanding.ccenter.uz/api/v1/`,
 });
 
 // Interceptor for all api request

@@ -9,7 +9,6 @@ import {
   updatePartners,
 } from "src/service/helpers/actions";
 import { IMAGE_LINK } from "src/service/helpers/constants";
-import { toast } from "react-toastify";
 import { queryClient } from "src/main";
 import { PenTool, Trash2 } from "react-feather";
 import { Drawer } from "src/components/Drawer";
@@ -32,10 +31,7 @@ const Partners = () => {
   // handleDelete
   const handleDelete = async (value) => {
     deleteData.mutate(value.id);
-    if (deleteData.isSuccess) {
-      queryClient.invalidateQueries({ queryKey: ["partners"] });
-      toast.success(deleteData.data, { position: "bottom-right" });
-    }
+    queryClient.invalidateQueries({ queryKey: ["partners"] });
   };
 
   // handleUpdate
@@ -44,7 +40,8 @@ const Partners = () => {
     body.append("camment", values.comment);
     body.append("image", fileList);
     const res = await updatePartners(record.id, body);
-
+    queryClient.invalidateQueries({ queryKey: ["partners"] });
+    closeDrawer();
     console.log(res, "res");
   };
 
@@ -54,7 +51,8 @@ const Partners = () => {
     body.append("camment", values.comment);
     body.append("image", fileList);
     const res = await addPartners(body);
-
+    queryClient.invalidateQueries({ queryKey: ["partners"] });
+    closeDrawer();
     console.log(res, "res");
   };
 

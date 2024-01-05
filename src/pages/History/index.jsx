@@ -10,7 +10,6 @@ import {
 } from "src/service/helpers/actions";
 import { IMAGE_LINK } from "src/service/helpers/constants";
 import { PenTool, Trash2 } from "react-feather";
-import { toast } from "react-toastify";
 import { queryClient } from "src/main";
 import { Drawer } from "src/components/Drawer";
 import { startTransition, useState } from "react";
@@ -32,10 +31,7 @@ const History = () => {
   // handleDelete
   const handleDelete = async (value) => {
     deleteData.mutate(value.id);
-    if (deleteData.isSuccess) {
-      queryClient.invalidateQueries({ queryKey: ["histories"] });
-      toast.success(deleteData.data, { position: "bottom-right" });
-    }
+    queryClient.invalidateQueries({ queryKey: ["histories"] });
   };
 
   // handleUpdate
@@ -44,7 +40,8 @@ const History = () => {
     body.append("title", values.title);
     body.append("history_image", fileList);
     const res = await updateHistory(record.id, body);
-
+    queryClient.invalidateQueries({ queryKey: ["histories"] });
+    closeDrawer();
     console.log(res, "res");
   };
 
@@ -54,7 +51,8 @@ const History = () => {
     body.append("title", values.title);
     body.append("history_image", fileList);
     const res = await addHistory(body);
-
+    queryClient.invalidateQueries({ queryKey: ["histories"] });
+    closeDrawer();
     console.log(res, "res");
   };
 

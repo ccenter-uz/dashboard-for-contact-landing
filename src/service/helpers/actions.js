@@ -13,8 +13,8 @@ export const LogIn = async (values) => {
         secure: true,
       }),
       toast.success("Успешно!", { position: "bottom-right" }),
-      await wait(2000));
-
+      await wait(2000),
+      (window.location.href = "/"));
     return res.data;
   } catch (err) {
     console.log(err, "err");
@@ -106,6 +106,8 @@ export const deleteHistory = async (id) => {
   try {
     const res = await api.delete(`ShortHistory/delete/${id}`);
 
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -117,6 +119,8 @@ export const deleteHeaders = async (id) => {
   try {
     const res = await api.delete(`HeaderImage/delete/${id}`);
 
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -128,6 +132,8 @@ export const deleteStatistics = async (id) => {
   try {
     const res = await api.delete(`Statistic/delete/${id}`);
 
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -139,6 +145,8 @@ export const deleteService = async (id) => {
   try {
     const res = await api.delete(`Servise/delete/${id}`);
 
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -150,6 +158,8 @@ export const deleteTeam = async (id) => {
   try {
     const res = await api.delete(`FrendlyTeam/delete/${id}`);
 
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -161,6 +171,8 @@ export const deletePartners = async (id) => {
   try {
     const res = await api.delete(`Partner/delete/${id}`);
 
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
