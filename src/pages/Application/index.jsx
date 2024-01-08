@@ -1,7 +1,7 @@
 import { Table } from "src/components/reusable/Table";
 import { useQuery } from "@tanstack/react-query";
-import "./style.scss";
 import { getApplications } from "src/service/helpers/actions";
+import { ExportToExcelButton } from "src/components/Excel";
 
 const Application = () => {
   const { data, isPending } = useQuery({
@@ -57,6 +57,13 @@ const Application = () => {
       <h1>Application</h1>
 
       <div className="application-table m-t-2">
+        <div className="w-100 d-flex justify-end m-b-1">
+          <ExportToExcelButton
+            data={data}
+            columns={column}
+            fileName={"Мурожатлар"}
+          />
+        </div>
         <Table
           loading={isPending}
           column={column}
