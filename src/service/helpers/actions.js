@@ -99,6 +99,16 @@ export const getPartners = async () => {
     console.log(err, "err");
   }
 };
+// getComment
+export const getComment = async () => {
+  try {
+    const res = await api.get("PartnerComment/all");
+
+    return res.data;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
 // ----------------------------------------------------------
 // DELETE
 // History
@@ -106,8 +116,8 @@ export const deleteHistory = async (id) => {
   try {
     const res = await api.delete(`ShortHistory/delete/${id}`);
 
-    res.status === 201 &&
-      toast.success("Создано", { position: "bottom-right" });
+    res.status === 204 &&
+      toast.success("Удалено", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -119,8 +129,8 @@ export const deleteHeaders = async (id) => {
   try {
     const res = await api.delete(`HeaderImage/delete/${id}`);
 
-    res.status === 201 &&
-      toast.success("Создано", { position: "bottom-right" });
+    res.status === 204 &&
+      toast.success("Удалено", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -132,8 +142,8 @@ export const deleteStatistics = async (id) => {
   try {
     const res = await api.delete(`Statistic/delete/${id}`);
 
-    res.status === 201 &&
-      toast.success("Создано", { position: "bottom-right" });
+    res.status === 204 &&
+      toast.success("Удалено", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -145,8 +155,8 @@ export const deleteService = async (id) => {
   try {
     const res = await api.delete(`Servise/delete/${id}`);
 
-    res.status === 201 &&
-      toast.success("Создано", { position: "bottom-right" });
+    res.status === 204 &&
+      toast.success("Удалено", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -158,8 +168,8 @@ export const deleteTeam = async (id) => {
   try {
     const res = await api.delete(`FrendlyTeam/delete/${id}`);
 
-    res.status === 201 &&
-      toast.success("Создано", { position: "bottom-right" });
+    res.status === 204 &&
+      toast.success("Удалено", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -171,8 +181,20 @@ export const deletePartners = async (id) => {
   try {
     const res = await api.delete(`Partner/delete/${id}`);
 
-    res.status === 201 &&
-      toast.success("Создано", { position: "bottom-right" });
+    res.status === 204 &&
+      toast.success("Удалено", { position: "bottom-right" });
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+// Comment
+export const deleteComment = async (id) => {
+  try {
+    const res = await api.delete(`PartnerComment/delete/${id}`);
+
+    res.status === 204 &&
+      toast.success("Удалено", { position: "bottom-right" });
     return res;
   } catch (err) {
     console.log(err, "err");
@@ -238,6 +260,18 @@ export const addTeam = async (values) => {
 export const addPartners = async (values) => {
   try {
     const res = await api.post("Partner/create", values);
+    res.status === 201 &&
+      toast.success("Создано", { position: "bottom-right" });
+
+    return res.data;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+// setComment
+export const addComment = async (values) => {
+  try {
+    const res = await api.post("PartnerComment/create", values);
     res.status === 201 &&
       toast.success("Создано", { position: "bottom-right" });
 
@@ -319,6 +353,19 @@ export const updateTeam = async (id, values) => {
 export const updatePartners = async (id, values) => {
   try {
     const res = await api.patch(`Partner/update/${id}`, values);
+    res.status === 204 &&
+      toast.success("Изменено", { position: "bottom-right" });
+
+    return res;
+  } catch (err) {
+    console.log(err, "err");
+  }
+};
+
+// updateComment
+export const updateComment = async (id, values) => {
+  try {
+    const res = await api.patch(`PartnerComment/update/${id}`, values);
     res.status === 204 &&
       toast.success("Изменено", { position: "bottom-right" });
 
