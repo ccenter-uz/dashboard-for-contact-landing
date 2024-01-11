@@ -3,6 +3,7 @@ import { lazy } from "react";
 import {
   Aperture,
   Clock,
+  File,
   Inbox,
   List,
   Settings,
@@ -19,6 +20,7 @@ const Partners = lazy(() => import("src/pages/Partners"));
 const Services = lazy(() => import("src/pages/Services"));
 const Statistics = lazy(() => import("src/pages/Statistics"));
 const Team = lazy(() => import("src/pages/Team"));
+const Comment = lazy(() => import("src/pages/Comment"));
 
 export const route = [
   {
@@ -66,5 +68,11 @@ export const route = [
     name: "Partners",
     element: <Partners />,
     icon: <UserCheck size={20} color="grey" />,
+  },
+  {
+    path: "/comments",
+    name: "Comments",
+    element: <Comment />,
+    icon: <File size={20} color="grey" />,
   },
 ];
