@@ -21,12 +21,26 @@ export const Drawer = ({ history, children }) => {
       >
         {children}
         {history.preview ? (
-          <img
-            src={history.preview}
-            alt="preview"
-            width={300}
-            height={"auto"}
-          />
+          <div className="d-flex flex-column gap-y-1">
+            <div className="block">
+              <p style={{ fontSize: "16px", fontWeight: 600 }}>Desktop:</p>
+              <img
+                src={history.preview.img}
+                alt="preview"
+                width={300}
+                height={"auto"}
+              />
+            </div>
+            <div className="block">
+              <p style={{ fontSize: "16px", fontWeight: 600 }}>Mobile:</p>
+              <img
+                src={history.preview.mobile}
+                alt="preview"
+                width={300}
+                height={"auto"}
+              />
+            </div>
+          </div>
         ) : (
           <div
             className="d-flex align-center justify-center"
