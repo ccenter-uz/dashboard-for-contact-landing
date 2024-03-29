@@ -202,7 +202,14 @@ const Services = () => {
           <Form.Item name={"title_en"} label="Название EN">
             <Input type="text" />
           </Form.Item>
-          <Form.Item name={"image"} label="Картинка">
+          <Form.Item
+            name={"image"}
+            label={
+              <p>
+                Картинка <span style={{ color: "red" }}>(319 X 187 пикс)</span>
+              </p>
+            }
+          >
             <Input type="file" onChange={handleChange} />
           </Form.Item>
         </Form>

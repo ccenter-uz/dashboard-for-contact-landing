@@ -178,7 +178,14 @@ const Team = () => {
           id="history-form"
           layout="vertical"
         >
-          <Form.Item name={"image"} label="Картинка">
+          <Form.Item
+            name={"image"}
+            label={
+              <p>
+                Картинка <span style={{ color: "red" }}>(413 X 237 пикс)</span>
+              </p>
+            }
+          >
             <Input type="file" onChange={handleChange} />
           </Form.Item>
         </Form>

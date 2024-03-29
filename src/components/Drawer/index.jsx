@@ -25,21 +25,25 @@ export const Drawer = ({ history, children }) => {
             <div className="block">
               <p style={{ fontSize: "16px", fontWeight: 600 }}>Desktop:</p>
               <img
-                src={history.preview.img}
+                src={
+                  history.preview.img ? history.preview.img : history.preview
+                }
                 alt="preview"
                 width={300}
                 height={"auto"}
               />
             </div>
-            <div className="block">
-              <p style={{ fontSize: "16px", fontWeight: 600 }}>Mobile:</p>
-              <img
-                src={history.preview.mobile}
-                alt="preview"
-                width={300}
-                height={"auto"}
-              />
-            </div>
+            {history.preview.mobile ? (
+              <div className="block">
+                <p style={{ fontSize: "16px", fontWeight: 600 }}>Mobile:</p>
+                <img
+                  src={history.preview.mobile}
+                  alt="preview"
+                  width={300}
+                  height={"auto"}
+                />
+              </div>
+            ) : null}
           </div>
         ) : (
           <div

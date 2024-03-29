@@ -181,7 +181,14 @@ const Partners = () => {
           id="history-form"
           layout="vertical"
         >
-          <Form.Item name={"image"} label="Картинка">
+          <Form.Item
+            name={"image"}
+            label={
+              <p>
+                Картинка <span style={{ color: "red" }}>(220 X 80 пикс)</span>
+              </p>
+            }
+          >
             <Input type="file" onChange={handleChange} />
           </Form.Item>
         </Form>
