@@ -1,7 +1,6 @@
 import { Table } from "src/components/reusable/Table";
 import { Button, Avatar, Tooltip, Form, Input } from "antd";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import "./style.scss";
 import {
   addHistory,
   deleteHistory,
@@ -12,7 +11,7 @@ import { IMAGE_LINK } from "src/service/helpers/constants";
 import { PenTool, Trash2 } from "react-feather";
 import { queryClient } from "src/main";
 import { Drawer } from "src/components/Drawer";
-import { startTransition, useState } from "react";
+import { useState } from "react";
 import { fileReader } from "src/service/helpers/usefulFns";
 
 const History = () => {
@@ -65,13 +64,11 @@ const History = () => {
 
   // close Drawer
   const closeDrawer = () => {
-    startTransition(() => {
-      setFileList(null);
-      setPreview(null);
-      setOpen(false);
-      setRecord(null);
-      form.resetFields();
-    });
+    setFileList(null);
+    setPreview(null);
+    setOpen(false);
+    setRecord(null);
+    form.resetFields();
   };
 
   const column = [

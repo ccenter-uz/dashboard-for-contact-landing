@@ -1,7 +1,6 @@
 import { Table } from "src/components/reusable/Table";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button, Avatar, Tooltip, Form, Input } from "antd";
-import "./style.scss";
 import {
   addPartners,
   deletePartners,
@@ -13,7 +12,7 @@ import { queryClient } from "src/main";
 import { PenTool, Trash2 } from "react-feather";
 import { Drawer } from "src/components/Drawer";
 import { fileReader } from "src/service/helpers/usefulFns";
-import { startTransition, useState } from "react";
+import { useState } from "react";
 
 const Partners = () => {
   const [form] = Form.useForm();
@@ -64,13 +63,11 @@ const Partners = () => {
 
   // close Drawer
   const closeDrawer = () => {
-    startTransition(() => {
-      setFileList(null);
-      setPreview(null);
-      setOpen(false);
-      setRecord(null);
-      form.resetFields();
-    });
+    setFileList(null);
+    setPreview(null);
+    setOpen(false);
+    setRecord(null);
+    form.resetFields();
   };
 
   const column = [

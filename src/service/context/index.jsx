@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { createContext } from "react";
 
 export const Context = createContext();
 const MainContext = ({ children }) => {
-  const [token, setToken] = useState();
+  const [data, setData] = useState([]);
   return (
-    <Context.Provider value={[token, setToken]}>{children}</Context.Provider>
+    <Context.Provider value={[data, setData]}>{children}</Context.Provider>
   );
 };
 
 export default MainContext;
+
+export const useData = () => {
+  const [data, setData] = useContext(Context);
+  return {
+    data,
+    setData,
+  };
+};

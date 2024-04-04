@@ -1,7 +1,6 @@
 import { Table } from "src/components/reusable/Table";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button, Avatar, Tooltip, Form, Input } from "antd";
-import "./style.scss";
 import {
   addService,
   deleteService,
@@ -11,7 +10,7 @@ import {
 import { IMAGE_LINK } from "src/service/helpers/constants";
 import { PenTool, Trash2 } from "react-feather";
 import { queryClient } from "src/main";
-import { useState, startTransition } from "react";
+import { useState } from "react";
 import { fileReader } from "src/service/helpers/usefulFns";
 import { Drawer } from "src/components/Drawer";
 
@@ -40,6 +39,10 @@ const Services = () => {
     body.append("title", values.title);
     body.append("title_ru", values.title_ru);
     body.append("title_en", values.title_en);
+    body.append("price", values.price);
+    body.append("text", values.text);
+    body.append("text_ru", values.text_ru);
+    body.append("text_en", values.text_en);
     body.append("servise_image", fileList);
     const res = await updateService(record.id, body);
     queryClient.invalidateQueries({ queryKey: ["services"] });
@@ -53,6 +56,10 @@ const Services = () => {
     body.append("title", values.title);
     body.append("title_ru", values.title_ru);
     body.append("title_en", values.title_en);
+    body.append("price", values.price);
+    body.append("text", values.text);
+    body.append("text_ru", values.text_ru);
+    body.append("text_en", values.text_en);
     body.append("servise_image", fileList);
     const res = await addService(body);
     queryClient.invalidateQueries({ queryKey: ["services"] });
@@ -69,13 +76,11 @@ const Services = () => {
 
   // close Drawer
   const closeDrawer = () => {
-    startTransition(() => {
-      setFileList(null);
-      setPreview(null);
-      setOpen(false);
-      setRecord(null);
-      form.resetFields();
-    });
+    setFileList(null);
+    setPreview(null);
+    setOpen(false);
+    setRecord(null);
+    form.resetFields();
   };
 
   const column = [
@@ -83,6 +88,18 @@ const Services = () => {
       title: "Название",
       dataIndex: "title",
       key: "title",
+      flex: 1,
+    },
+    {
+      title: "Сумма",
+      dataIndex: "price",
+      key: "price",
+      flex: 1,
+    },
+    {
+      title: "Текст",
+      dataIndex: "text",
+      key: "text",
       flex: 1,
     },
     {
@@ -128,6 +145,10 @@ const Services = () => {
                   form.setFieldValue("title", record.title);
                   form.setFieldValue("title_ru", record.title_ru);
                   form.setFieldValue("title_en", record.title_en);
+                  form.setFieldValue("price", record.price);
+                  form.setFieldValue("text", record.text);
+                  form.setFieldValue("text_ru", record.text_ru);
+                  form.setFieldValue("text_en", record.text_en);
                   setFileList(record.image_link);
                   setPreview(IMAGE_LINK + "" + record.image_link);
                 }}
@@ -193,15 +214,28 @@ const Services = () => {
           id="history-form"
           layout="vertical"
         >
-          <Form.Item name={"title"} label="Название UZ">
+          <Form.Item name={"title"} label="Название UZ" required>
             <Input type="text" />
           </Form.Item>
-          <Form.Item name={"title_ru"} label="Название РУ">
+          <Form.Item name={"title_ru"} label="Название РУ" required>
             <Input type="text" />
           </Form.Item>
-          <Form.Item name={"title_en"} label="Название EN">
+          <Form.Item name={"title_en"} label="Название EN" required>
             <Input type="text" />
           </Form.Item>
+          <Form.Item name={"price"} label="Сумма" required>
+            <Input type="number" />
+          </Form.Item>
+          <Form.Item name={"text"} label="Текст UZ" required>
+            <Input type="text" />
+          </Form.Item>
+          <Form.Item name={"text_ru"} label="Текст РУ" required>
+            <Input type="text" />
+          </Form.Item>
+          <Form.Item name={"text_en"} label="Текст EN" required>
+            <Input type="text" />
+          </Form.Item>
+
           <Form.Item
             name={"image"}
             label={

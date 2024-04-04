@@ -4,6 +4,7 @@ import Header from "src/components/Header";
 import { ToastContainer } from "react-toastify";
 import { Layout } from "antd";
 import { Sider } from "src/components/Sider";
+import { Suspense } from "react";
 
 const LayoutComp = () => {
   return (
@@ -12,7 +13,9 @@ const LayoutComp = () => {
       <Layout>
         <Sider />
         <Layout.Content className="content">
-          <Outlet />
+          <Suspense fallback="LOADING...">
+            <Outlet />
+          </Suspense>
         </Layout.Content>
       </Layout>
       <ToastContainer />

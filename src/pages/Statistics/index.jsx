@@ -1,7 +1,6 @@
 import { Table } from "src/components/reusable/Table";
 import { Button, Tooltip, Form, Input } from "antd";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import "./style.scss";
 import {
   deleteStatistics,
   getStatistics,
@@ -10,7 +9,7 @@ import {
 import { PenTool, Trash2 } from "react-feather";
 import { queryClient } from "src/main";
 import { Drawer } from "src/components/Drawer";
-import { startTransition, useState } from "react";
+import { useState } from "react";
 
 const Statistics = () => {
   const [form] = Form.useForm();
@@ -39,11 +38,9 @@ const Statistics = () => {
 
   // close Drawer
   const closeDrawer = () => {
-    startTransition(() => {
-      setOpen(false);
-      setRecord(null);
-      form.resetFields();
-    });
+    setOpen(false);
+    setRecord(null);
+    form.resetFields();
   };
 
   const column = [

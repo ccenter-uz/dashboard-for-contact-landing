@@ -1,4 +1,3 @@
-import "./style.scss";
 import { Layout } from "antd";
 
 const Header = () => {

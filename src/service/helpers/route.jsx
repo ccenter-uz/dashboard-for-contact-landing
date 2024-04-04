@@ -10,6 +10,8 @@ import {
   UserCheck,
   Users,
 } from "react-feather";
+import { MainService } from "src/pages/MainService";
+import { MainServiceID } from "src/pages/MainServiceID";
 import { Welcome } from "src/pages/Welcome";
 
 // dynamic import
@@ -74,5 +76,15 @@ export const route = [
     name: "Comments",
     element: <Comment />,
     icon: <File size={20} color="grey" />,
+  },
+  {
+    path: "/main-service",
+    name: "MainService",
+    element: <MainService />,
+    icon: <Settings size={20} color="grey" />,
+  },
+  {
+    path: "/main-service/:id",
+    element: <MainServiceID />,
   },
 ];
