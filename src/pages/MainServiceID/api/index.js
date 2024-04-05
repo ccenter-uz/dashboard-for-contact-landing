@@ -74,6 +74,8 @@ export async function SaveMainServiceContent(values, content, formData) {
       }, 1500));
   } catch (e) {
     console.error(e, "err");
+  } finally {
+    sessionStorage.removeItem("cardId");
   }
 }
 
@@ -126,5 +128,7 @@ export async function UpdateMainServiceContent(values, content, formData) {
       }, 1500));
   } catch (e) {
     console.error(e, "err");
+  } finally {
+    sessionStorage.removeItem("cardId");
   }
 }
