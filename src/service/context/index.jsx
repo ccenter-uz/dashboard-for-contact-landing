@@ -11,10 +11,13 @@ const MainContext = ({ children }) => {
 
 export default MainContext;
 
-export const useData = () => {
+const useData = () => {
   const [data, setData] = useContext(Context);
   return {
     data,
     setData,
   };
 };
+
+// eslint-disable-next-line react-refresh/only-export-components
+export { useData };

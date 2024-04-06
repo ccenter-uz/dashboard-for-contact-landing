@@ -11,6 +11,11 @@ const Application = () => {
   });
   const column = [
     {
+      title: "№",
+      dataIndex: "application_Number",
+      key: "application_Number",
+    },
+    {
       title: "Наименования",
       dataIndex: "name",
       key: "name",
@@ -22,6 +27,24 @@ const Application = () => {
       key: "type_of_service",
       flex: 1,
       align: "center",
+    },
+    {
+      title: "Вертуал номер",
+      dataIndex: "virtual_number",
+      key: "virtual_number",
+      flex: 1,
+      align: "center",
+      render: (t, record) => <p>{record.text?.virtual_number}</p>,
+    },
+    {
+      title: "Доп.услуги",
+      dataIndex: "additional_services",
+      key: "additional_services",
+      flex: 1,
+      align: "center",
+      render: (t, record) => (
+        <p style={{ fontSize: "12px" }}>{record.text?.services}</p>
+      ),
     },
     {
       title: "Название",
@@ -50,8 +73,12 @@ const Application = () => {
       key: "create_data",
       flex: 1,
       align: "center",
+      render: (t) => (
+        <p>{new Intl.DateTimeFormat("ru-RU").format(new Date(t))} </p>
+      ),
     },
   ];
+
   return (
     <main className="application">
       <h1>Application</h1>
