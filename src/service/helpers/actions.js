@@ -61,8 +61,8 @@ export const getApplications = async ({ queryKey }) => {
   try {
     // eslint-disable-next-line no-unused-vars
     const [_, serviceType] = queryKey;
-    const res = await api.get("Application/all", {
-      params: { service_type: serviceType },
+    const res = await api.get("Application/sort", {
+      params: { type_of_service: serviceType },
     });
 
     return res.data;

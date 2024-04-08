@@ -7,19 +7,13 @@ import { api } from "src/utils/api";
 import { useEffect, useState } from "react";
 
 const Application = () => {
-  const [serviceType, setServiceType] = useState("");
+  const [serviceType, setServiceType] = useState();
   const { data, isPending } = useQuery({
     queryKey: ["application", serviceType],
     queryFn: getApplications,
     refetchOnWindowFocus: false,
   });
-  const [services, setServices] = useState([
-    {
-      id: "1",
-      label: "Все",
-      value: "",
-    },
-  ]);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     api.get("mainServiseCategory/all").then((res) => setServices(res.data));
@@ -161,14 +155,14 @@ const Application = () => {
       <div className="application-table m-t-2">
         <div className="w-100 d-flex justify-end m-b-1 gap-x-2">
           <Select
-            defaultValue={""}
+            // defaultValue={"Все"}
             onChange={(value) => setServiceType(value)}
             placeholder="Выберите услугу для фильтрации"
             style={{ width: "100%" }}
-            options={[{ id: "1", value: "", label: "Все" }].concat(
+            options={[{ id: "1", value: "Все", label: "Все" }].concat(
               services.map((item) => ({
                 key: item.id,
-                value: item.id,
+                value: item.title_ru,
                 label: item.title_ru,
               }))
             )}
