@@ -57,9 +57,13 @@ export const getStatistics = async () => {
 };
 
 // getApplications
-export const getApplications = async () => {
+export const getApplications = async ({ queryKey }) => {
   try {
-    const res = await api.get("Application/all");
+    // eslint-disable-next-line no-unused-vars
+    const [_, serviceType] = queryKey;
+    const res = await api.get("Application/all", {
+      params: { service_type: serviceType },
+    });
 
     return res.data;
   } catch (err) {
