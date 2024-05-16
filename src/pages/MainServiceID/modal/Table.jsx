@@ -1,11 +1,11 @@
 import { PenTool, Trash } from "react-feather";
-import { Table } from "src/components/reusable/Table";
 import { Tooltip } from "antd";
 import { DeleteMainServiceContent, GetMainServiceContent } from "../api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useData } from "src/service/context";
 import { IMAGE_LINK } from "src/service/helpers/constants";
+import { DragTable } from "src/pages/MainService";
 
 export const TableModal = ({ setOpen, form }) => {
   const { id } = useParams();
@@ -148,5 +148,5 @@ export const TableModal = ({ setOpen, form }) => {
     });
   }, [id]);
 
-  return <Table row={row} column={column} />;
+  return <DragTable rows={row} setRow={setRow} columns={column} />;
 };

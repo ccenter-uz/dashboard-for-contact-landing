@@ -1,10 +1,10 @@
 import { Eye, PenTool, Trash } from "react-feather";
-import { Table } from "src/components/reusable/Table";
 import { Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import { DeleteMainServiceTab, GetMainServiceTab } from "../api";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { DragTable } from "./DragTable";
 
 export const TableModal = ({ setOpen, form }) => {
   const [row, setRow] = useState([]);
@@ -94,5 +94,5 @@ export const TableModal = ({ setOpen, form }) => {
     );
   }, []);
 
-  return <Table row={row} column={column} />;
+  return <DragTable rows={row} setRow={setRow} columns={column} />;
 };
