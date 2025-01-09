@@ -88,7 +88,7 @@ const History = () => {
       },
     },
     {
-      title: "Название",
+      title: "Название 111",
       dataIndex: "title",
       key: "title",
       flex: 1,
